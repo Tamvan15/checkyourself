@@ -28,8 +28,6 @@ def index(request):
         
         # Ambil konten pesan dari respons
         response_content = chat_completion.choices[0].message.content
-        request.session['response_data'] = response_content
-        return redirect('index')
+        return render(request, "check/index.html", {"response_data": response_content})
     else:
-        response_data = request.session.pop('response_data', None)
-        return render(request, "check/index.html", {"response_data": response_data})
+        return render(request, "check/index.html", {"response_data": None})
