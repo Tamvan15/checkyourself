@@ -1,0 +1,35 @@
+{% extends "check/base.html" %} {% block content %}
+<div class="flex justify-center items-center h-screen">
+  <div id="form_container" class="{% if response_data %}hidden{% endif %}">
+    <form method="POST" class="flex flex-col items-center">
+      {% csrf_token %}
+      <div class="flex items-center space-x-2">
+        <input
+          class="input input-bordered input-info w-full max-w-xs"
+          name="name"
+          placeholder="Name"
+        />
+        <button class="btn btn-primary">Check</button>
+      </div>
+    </form>
+  </div>
+  <div
+    id="response_container"
+    class="flex flex-col items-center justify-center {% if not response_data %}hidden{% endif %} bg-white text-gray-800 rounded-lg"
+    style="
+      max-width: 600px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+    "
+  >
+    <h3 class="text-lg font-bold">Kepribadianmu :</h3>
+    <p class="text-center">{{ response_data }}</p>
+    <button
+      class="mt-4 btn btn-error"
+      onclick="document.getElementById('form_container').classList.remove('hidden'); document.getElementById('response_container').classList.add('hidden'); document.querySelector('input[name=name]').value = '';"
+    >
+      Back
+    </button>
+  </div>
+</div>
+{% endblock %}
